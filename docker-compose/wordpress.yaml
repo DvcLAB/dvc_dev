@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    restart: always
+    ports:
+      - 4000:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress_admin
+      WORDPRESS_DB_PASSWORD: LvWo06Nv
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - /opt/wordpress/volumes/html:/var/www/html
+
+  db:
+    container_name: wordpress_mysql
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress_admin
+      MYSQL_PASSWORD: LvWo06Nv
+      MYSQL_RANDOM_ROOT_PASSWORD: 'LvWo06Nv'
+    volumes:
+      - /opt/wordpress/volumes/data:/var/lib/mysql

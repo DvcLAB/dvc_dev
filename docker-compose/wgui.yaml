@@ -1,0 +1,18 @@
+version: '3.6'
+services:
+  wg-gen-web-demo:
+    image: vx3r/wg-gen-web:latest
+    container_name: wgui
+    restart: unless-stopped
+    ports:
+      - 41198:8080
+    environment:
+      - WG_CONF_DIR=/data
+      - WG_INTERFACE_NAME=wg0.conf
+      - OAUTH2_PROVIDER_NAME=oauth2oidc
+      - OAUTH2_PROVIDER=https://collaborauth.dvclab.com/auth/realms/412
+      - OAUTH2_CLIENT_ID=wgui
+      - OAUTH2_CLIENT_SECRET=${secret}
+      - OAUTH2_REDIRECT_URL=http://dvclab.com:41198
+    volumes:
+      - /etc/wireguard:/data
